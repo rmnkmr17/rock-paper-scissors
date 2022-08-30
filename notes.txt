@@ -1,0 +1,1 @@
+1. Creare una funzione che emetta in maniera casuale.
