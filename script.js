@@ -8,8 +8,28 @@ function getComputerChoice() {
     console.log(random, choices[random]);
 }
 
-function singleRound(playerSelection, computerSelection) {
-    return "You Lose! Paper beats Rock";
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection){
+        return "Draw!";
+    }
+    else if (playerSelection === "rock" && computerSelection === "scissors"){
+        return "You win!"
+    }
+    else if (playerSelection === "rock" && computerSelection === "paper"){
+        return "You lost!"
+    }
+    else if (playerSelection === "scissors" && computerSelection === "rock"){
+        return "You lost!"
+    }
+    else if (playerSelection === "scissors" && computerSelection === "paper"){
+        return "You win!"
+    }
+    else if (playerSelection === "paper" && computerSelection === "rock"){
+        return "You win!"
+    }
+    else (playerSelection === "paper" && computerSelection === "scissors"){
+        return "You lost!"
+    }
 }
 
 const playerSelection = "rock";
