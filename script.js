@@ -1,19 +1,13 @@
-// Listing the computer's choices
-
-const choices = [
+const computerChoices = [
     "rock",
     "scissors",
     "paper"
 ];
 
-// A function that gets computer's choice
-
 function getComputerChoice() {
-    const randChoice = choices[Math.floor(Math.random() * choices.length)];
+    const randChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     return randChoice;
 }
-
-// A function that decides the winner
 
 function decideWinner(playerSelection, computerSelection) {
 
@@ -40,8 +34,6 @@ function decideWinner(playerSelection, computerSelection) {
     }
 }
 
-// A function that plays a single round
-
 function playRound(playerSelection, computerSelection) {
     const result = decideWinner(playerSelection, computerSelection);
     if (result == "Player") {
@@ -54,8 +46,6 @@ function playRound(playerSelection, computerSelection) {
         return "It's a draw!";
     }
 }
-
-// A function that plays a game of five rounds
 
 function game() {
     let scorePlayer = 0;
@@ -84,7 +74,6 @@ function game() {
         console.log("It's a Draw");
     }
 }
-    // A function that gets player's choice
 
     function getPlayerChoice() {
         let validatedInput = false;
@@ -94,7 +83,7 @@ function game() {
                 continue;
             }
             const choiceInLower = randChoice.toLowerCase();
-            if (choices.includes(choiceInLower)) {
+            if (computerChoices.includes(choiceInLower)) {
                 validatedInput = true;
                 return choiceInLower;
             }
