@@ -4,6 +4,17 @@ const computerChoices = [
     "paper"
 ];
 
+
+const btnRock = document.querySelector(".rock");
+const btnPaper = document.querySelector(".paper");
+const btnScissors = document.querySelector(".scissors");
+const outcomeDiv = document.querySelector(".outcome");
+
+let playerScoreBoard = document.querySelector(".player-score");
+let computerScoreBoard = document.querySelector(".computer-score");
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const randChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     return randChoice;
@@ -37,57 +48,87 @@ function decideWinner(playerSelection, computerSelection) {
 function playRound(playerSelection, computerSelection) {
     const result = decideWinner(playerSelection, computerSelection);
     if (result == "Player") {
-        return `You Win! ${playerSelection} beats ${computerSelection}`;
+        playerScore++;
+        let para = document.createElement("p"); 
+        para.innerText = `You Win! ${playerSelection} beats ${computerSelection}`;
+        outcomeDiv.appendChild(para);
+        
     }
     else if (result == "Computer") {
-        return `Computer wins! ${computerSelection} beats ${playerSelection}`;
+        computerScore++;
+        let para = document.createElement("p");
+        para.innerText = `Computer wins! ${computerSelection} beats ${playerSelection}`;
+        outcomeDiv.appendChild(para);
     }
     else {
-        return "It's a draw!";
+        let para = document.createElement("p");
+        para.innerText = `It's a draw! You both picked ${playerSelection}`;
+        outcomeDiv.appendChild(para);
+
+    }
+    // let scorePlayerPara = document.createElement("p");
+    // scorePlayerPara.innerText = `${playerScore}`;
+    // outcomeDiv.append(scorePlayerPara);
+
+    // let scoreComputerPara = document.createElement("p");
+    // scoreComputerPara.innerText = `${computerScore}`;
+    // outcomeDiv.append(scoreComputerPara);
+
+}
+
+const checkWinner = (playerScore, computerScore) => {
+    if (playerScore === 5) {
+        const h2 = document.createElement("h2");
+        h2.classList.add("player-won")
+        h2.innerText = `You win!`
+        outcomeDiv.append(h2);
+        
+    }
+    if (computerScore === 5) {
+        const h2 = document.createElement("h2");
+        h2.classList.add("computer-won")
+        h2.innerText = `Computer wins!`
+        outcomeDiv.append(h2);
+        
+    }
+    
+}
+
+function restartGame() {
+    if (computerScore >= 5 || playerScore >= 5 ) {
+        playerScore = 0;
+        computerScore = 0;
+        playRound(playerSelection, computerSelection);
     }
 }
 
-function game() {
-    let scorePlayer = 0;
-    let scoreComputer = 0;
+btnRock.addEventListener("click", () => {
+    const computerSelection = getComputerChoice();
+    const playerSelection = "rock";
+    playRound(playerSelection, computerSelection);
+    playerScoreBoard.innerText = `Player: ${playerScore}`;
+    computerScoreBoard.innerText = `Computer: ${computerScore}`;
+    checkWinner(playerScore, computerScore);
+    restartGame();
+    
+});
 
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = getPlayerChoice();
-        const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-
-        if (decideWinner(playerSelection, computerSelection) == "Player") {
-            scorePlayer++;
-        }
-        else if (decideWinner(playerSelection, computerSelection) == "Computer") {
-            scoreComputer++;
-        }
-    }
-
-    if (scorePlayer > scoreComputer) {
-        console.log("You won!");
-    }
-    else if (scorePlayer < scoreComputer) {
-        console.log("Computer won!");
-    }
-    else {
-        console.log("It's a Draw");
-    }
-}
-
-    function getPlayerChoice() {
-        let validatedInput = false;
-        while (validatedInput == false) {
-            const randChoice = prompt("Rock Paper Scissors");
-            if (randChoice == null) {
-                continue;
-            }
-            const choiceInLower = randChoice.toLowerCase();
-            if (computerChoices.includes(choiceInLower)) {
-                validatedInput = true;
-                return choiceInLower;
-            }
-        }
-    }
-
-    game();
+btnScissors.addEventListener("click", () => {
+    const computerSelection = getComputerChoice();
+    const playerSelection = "scissors";
+    playRound(playerSelection, computerSelection);
+    playerScoreBoard.innerText = `Player: ${playerScore}`;
+    computerScoreBoard.innerText = `Computer: ${computerScore}`;
+    checkWinner(playerScore, computerScore);
+    restartGame();
+    
+});
+btnPaper.addEventListener("click", () => {
+    const computerSelection = getComputerChoice();
+    const playerSelection = "paper";
+    playRound(playerSelection, computerSelection);
+    playerScoreBoard.innerText = `Player: ${playerScore}`;
+    computerScoreBoard.innerText = `Computer: ${computerScore}`;
+    checkWinner(playerScore, computerScore);
+    restartGame();
+});
